@@ -28,10 +28,10 @@ jobs:
 
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v5
+
       - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '24'
           cache: 'npm'
@@ -60,10 +60,8 @@ jobs:
           du -sh public/
       
       - name: ☁️ Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: minhdan-poetry-site
-          directory: public
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy public --project-name=minhdan-poetry-site --branch=main
