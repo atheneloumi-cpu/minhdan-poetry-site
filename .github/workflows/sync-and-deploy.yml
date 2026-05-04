@@ -1,0 +1,66 @@
+name: Sync from Notion & Deploy
+
+# Khi nào trigger workflow này?
+on:
+  # 1. Mỗi giờ tự động chạy
+  schedule:
+    - cron: '0 * * * *'  # Mỗi giờ vào phút thứ 0
+  
+  # 2. Khi push code lên main
+  push:
+    branches:
+      - main
+  
+  # 3. Trigger thủ công từ GitHub UI
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Lý do trigger thủ công'
+        required: false
+        default: 'Manual sync'
+
+jobs:
+  sync-and-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: 📦 Install dependencies
+        run: npm ci
+      
+      - name: 🌿 Sync from Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_POEMS_DB_ID: ${{ secrets.NOTION_POEMS_DB_ID }}
+          NOTION_COLLECTIONS_DB_ID: ${{ secrets.NOTION_COLLECTIONS_DB_ID }}
+          NOTION_AUTHOR_DB_ID: ${{ secrets.NOTION_AUTHOR_DB_ID }}
+        run: npm run sync
+      
+      - name: 🎨 Build HTML pages
+        run: npm run build
+      
+      - name: 📊 Show build stats
+        run: |
+          echo "=== Build Output ==="
+          ls -la public/
+          echo "=== Data files ==="
+          ls -la data/
+          echo "=== Total size ==="
+          du -sh public/
+      
+      - name: ☁️ Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: minhdan-poetry-site
+          directory: public
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

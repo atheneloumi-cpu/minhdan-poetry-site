@@ -1,0 +1,32 @@
+{
+  "name": "minhdan-poetry-site",
+  "version": "1.0.0",
+  "description": "Minh Dan Poetry Website — synced from Notion to Cloudflare Pages",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-notion.js",
+    "build": "node scripts/build-pages.js",
+    "all": "npm run sync && npm run build",
+    "dev": "npm run all && npx serve public",
+    "clean": "rimraf data public"
+  },
+  "keywords": [
+    "poetry",
+    "notion",
+    "minh-dan",
+    "static-site"
+  ],
+  "author": "Minh Dan",
+  "license": "MIT",
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "serve": "^14.2.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{collection}} — Minh Đan</title>
+  <link rel="stylesheet" href="/styles/shared.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/">Minh Đan</a></h1>
+    <nav>
+      <a href="/">Trang chủ</a>
+      <a href="/library.html">Thư viện</a>
+    </nav>
+  </header>
+
+  <main class="collection-page">
+    <h2>{{collection}}</h2>
+    <p class="count">{{count}} bài thơ</p>
+
+    <ul class="poem-list">
+      {{items}}
+    </ul>
+  </main>
+
+  <footer>
+    <p>© Minh Đan</p>
+  </footer>
+</body>
+</html>

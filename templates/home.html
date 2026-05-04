@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minh Đan — Thơ</title>
+  <link rel="stylesheet" href="/styles/shared.css">
+</head>
+<body>
+  <header>
+    <h1>Minh Đan</h1>
+    <nav>
+      <a href="/">Trang chủ</a>
+      <a href="/library.html">Thư viện</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>Thơ là nơi những điều không nói được thành lời.</p>
+    </section>
+
+    <section class="recent">
+      <h2>Bài thơ mới nhất</h2>
+      <ul>
+        {{recentPoems}}
+      </ul>
+    </section>
+
+    <p class="count">Tổng cộng {{count}} bài thơ.</p>
+  </main>
+
+  <footer>
+    <p>© Minh Đan</p>
+  </footer>
+</body>
+</html>
