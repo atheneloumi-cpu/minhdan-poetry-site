@@ -4,7 +4,7 @@ name: Sync from Notion & Deploy
 on:
   # 1. Mỗi giờ tự động chạy
   schedule:
-    - cron: '0 * * * *'  # Mỗi giờ vào phút thứ 0
+    - cron: '*/15 * * * *'  # Mỗi 15 phút
   
   # 2. Khi push code lên main
   push:
